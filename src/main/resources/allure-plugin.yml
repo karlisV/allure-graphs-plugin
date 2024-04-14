@@ -1,6 +1,6 @@
-id: TODO
-name: Coverage display
-description: Adds a "coverage" tab to the reports
+id: graphs-tab-plugin
+name: Graph tabs
+description: Adds tabs specified by the file name to the report that include various graphs
 jsFiles:
   - index.js
 cssFiles:
