@@ -1,4 +1,4 @@
-id: api-coverage-plugin
+id: TODO
 name: Coverage display
 description: Adds a "coverage" tab to the reports
 jsFiles:
@@ -6,4 +6,4 @@ jsFiles:
 cssFiles:
   - style.css
 extensions:
-  - org.karlisV.ApiCoveragePlugin
+  - TODO
