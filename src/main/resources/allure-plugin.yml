@@ -1,0 +1,9 @@
+id: api-coverage-plugin
+name: Coverage display
+description: Adds a "coverage" tab to the reports
+jsFiles:
+  - index.js
+cssFiles:
+  - style.css
+extensions:
+  - org.karlisV.ApiCoveragePlugin

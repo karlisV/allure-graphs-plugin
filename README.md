@@ -33,9 +33,10 @@ The plugin supports a versatile range of chart types, allowing users to select t
 
 To integrate and use the Allure Graph Plugin in your project, follow these steps:
 
-1. Include the plugin into your Allure report generation setup.
-2. When creating the results be sure to generate `graph-tab-{some-key}.json` file, the `{some-key}` part is used to generate the page name so it must be unique
-3. Customize the `graph-tab-performance.json` file to define the graphs you need, based on the available chart types and their configurations.
+1. Use `mvn clean package` will create a zip file with all the necessary files you need to add to the Allure reporter
+2. Include the plugin into your Allure report generation setup.
+3. When creating the results be sure to generate `graph-tab-{some-key}.json` file, the `{some-key}` part is used to generate the page name so it must be unique
+4. Customize the `graph-tab-{some-key}.json` file to define the graphs you need, based on the available chart types and their configurations.
 
 For more specific setup instructions, usage examples, and contribution guidelines, refer to the subsequent sections.
 

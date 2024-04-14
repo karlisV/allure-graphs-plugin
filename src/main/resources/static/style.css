@@ -1,0 +1,63 @@
+.coverage-container {
+    max-height: 85vh; 
+    overflow-y: auto;
+    padding-left: 5px;
+    margin-left: 10px;
+}
+
+.root-path-header {
+    margin-top: 20px;
+    font-size: 1.5em;
+    color: #333;
+}
+
+.url-list-container {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.url-list-container li {
+    margin: 5px 0;
+}
+
+.method, .path, .count {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.method {
+    width: 60px;
+    text-align: right;
+    font-weight: bold;
+}
+
+.path {
+    margin-left: 10px;
+}
+
+.hit {
+    background-color: #e8f5e9;
+}
+
+.miss {
+    background-color: #f8a2a2;
+}
+
+.root-path-header.green {
+    background-color: #81c784;
+}
+
+.root-path-header.yellow {
+    background-color: #fff176;
+}
+
+.root-path-header.red {
+    background-color: #e57373;
+}
+
+.total-coverage {
+    margin-left: 10px;
+    font-size: 24px;
+    padding: 5px;
+}
