@@ -16,9 +16,11 @@
         </fileSet>
         <fileSet>
             <directory>${project.build.directory}/dist</directory>
-            <outputDirectory>/dist</outputDirectory>
+            <outputDirectory>/</outputDirectory>
             <includes>
-                <include>**/*</include>
+                <include>**/*.js</include>
+                <include>**/*.css</include>
+                <include>**/*.yml</include>
             </includes>
         </fileSet>
     </fileSets>
