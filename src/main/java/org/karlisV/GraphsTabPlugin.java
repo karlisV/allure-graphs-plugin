@@ -1,9 +1,7 @@
 package org.karlisV;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.qameta.allure.Aggregator2;
-import io.qameta.allure.Constants;
 import io.qameta.allure.Reader;
 import io.qameta.allure.ReportStorage;
 import io.qameta.allure.context.JacksonContext;
