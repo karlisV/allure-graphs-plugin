@@ -27,6 +27,8 @@
   }
 
   // Restart router so deep-links work
+  // Using this a bit nasty approach to update the router because we load the tabs async
+  // TODO: find a better solution
   Backbone.history.stop();
   Backbone.history.start();
 })();
