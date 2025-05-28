@@ -15,18 +15,18 @@ The Allure Graph Plugin enriches your Allure reports by allowing the inclusion o
 ### JSON Configurations
 
 - **Translations**: Specify the tab name under which the graph will be displayed in the Allure report.
-- **Icon**: Assign an icon to represent the graph tab visually.
+- **Icon**: Use "iconClass" key in the payload to assign an icon to represent the graph tab visually (Allure uses Font Awesome v4 so the class name is limited to the icons found in that version).
 - **Chart Types**: Define the type of graph you wish to include. Each chart type is a JSON object that contains various properties and the data you wish to visualize.
 
 ## Supported Chart Types
 
 The plugin supports a versatile range of chart types, allowing users to select the most appropriate visual representation for their data:
 
-- **Pie Chart (key: `pie_chart`)**: Displays data in a circular chart, which is divided into sectors to illustrate numerical proportion.
-- **Bar Chart (key: `bar_chart`)**: Available in horizontal and vertical orientations, bar charts are used to compare different categories of data.
+- **Pie Chart (key: `pieChart`)**: Displays data in a circular chart, which is divided into sectors to illustrate numerical proportion.
+- **Bar Chart (key: `barChart`)**: Available in horizontal and vertical orientations, bar charts are used to compare different categories of data.
 - **Trend Chart (key: `trend`)**: A type of bar chart that includes historical data points to depict trends over time.
-- **Stacked Bar Chart (key: `stacked_bar`)**: Similar to regular bar charts but with the ability to stack data on top of each other for comparative purposes.
-- **Area Chart (key: `area_chart`)**: Depicts quantities through filled areas under lines, useful for representing cumulated totals using numbers or dates.
+- **Stacked Bar Chart (key: `stackedBar`)**: Similar to regular bar charts but with the ability to stack data on top of each other for comparative purposes.
+- **Area Chart (key: `areaChart`)**: Depicts quantities through filled areas under lines, useful for representing cumulated totals using numbers or dates.
 - **Gauge Chart (key: `gauge`)**: Visualizes data in a dial or speedometer format, ideal for showing performance metrics against predetermined thresholds.
 
 ## Getting Started
