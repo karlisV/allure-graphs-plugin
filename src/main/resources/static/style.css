@@ -1,0 +1,11 @@
+.graph-tab-view .chart-container {
+  width: 100%;
+  max-width: 600px;
+  height: 400px;
+  margin: 0 auto;
+}
+.graph-tab-view canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}

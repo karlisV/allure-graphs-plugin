@@ -2,7 +2,6 @@
 
 class GraphLayout extends allure.components.AppLayout {
   initialize(options) {
-    console.log(options);
     this.tabName = options.name;
     this.url = `/data/graph-tab-${this.tabName}.json`;
     this.data = options.data;
@@ -15,7 +14,11 @@ class GraphLayout extends allure.components.AppLayout {
       }
       case "pie":
       default: {
-        return "TODO PIE CHART";
+        const model = new Backbone.Model({
+          data: this.data,
+          title: this.tabName,
+        });
+        return new PieChartView({ model });
       }
     }
   }

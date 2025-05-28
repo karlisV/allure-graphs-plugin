@@ -27,13 +27,14 @@ function titleCase(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-function registerTab(name, { iconClass }) {
+function registerTab(config) {
+  const { name, iconClass } = config;
   allure.api.addTab(name, {
-    title: titleCase(name),
+    title: name,
     icon: `fa ${iconClass}`,
     route: name,
     onEnter: () => {
-      return new GraphLayout();
+      return new GraphLayout(config);
     },
   });
 }
@@ -52,7 +53,8 @@ async function initTabs() {
       tabNames.map(async (name) => {
         try {
           const config = await fetchTabConfig(name);
-          registerTab(name, config);
+          const fullConfig = { name: titleCase(name), ...config };
+          registerTab(fullConfig);
         } catch (err) {
           console.error(`Failed to load tab "${name}":`, err);
         }
