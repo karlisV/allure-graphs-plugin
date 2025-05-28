@@ -33,8 +33,7 @@ function registerTab(name, { iconClass }) {
     icon: `fa ${iconClass}`,
     route: name,
     onEnter: () => {
-      // TODO: implement
-      return "todo";
+      return new GraphLayout();
     },
   });
 }
