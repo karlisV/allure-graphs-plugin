@@ -27,14 +27,14 @@ function titleCase(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-function registerTab(name, { iconClass }) {
+function registerTab(config) {
+  const { name, iconClass } = config;
   allure.api.addTab(name, {
-    title: titleCase(name),
+    title: name,
     icon: `fa ${iconClass}`,
     route: name,
     onEnter: () => {
-      // TODO: implement
-      return "todo";
+      return new GraphLayout(config);
     },
   });
 }
@@ -47,18 +47,21 @@ function restartRouter() {
 async function initTabs() {
   try {
     const html = await fetchText(`${BASE_PATH}`);
+    // TODO: add ordering numbers in file names as a requirement
     const tabNames = extractTabNames(html);
 
-    await Promise.all(
-      tabNames.map(async (name) => {
-        try {
-          const config = await fetchTabConfig(name);
-          registerTab(name, config);
-        } catch (err) {
-          console.error(`Failed to load tab "${name}":`, err);
-        }
-      })
-    );
+    for (const rawName of tabNames) {
+      try {
+        const cfg = await fetchTabConfig(rawName);
+        const fullConfig = {
+          name: titleCase(rawName),
+          ...cfg,
+        };
+        registerTab(fullConfig);
+      } catch (err) {
+        console.error(`Failed to load tab "${rawName}":`, err);
+      }
+    }
 
     restartRouter();
   } catch (err) {
