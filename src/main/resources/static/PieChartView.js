@@ -1,11 +1,13 @@
 class PieChartView extends Backbone.Marionette.View {
   async render() {
     const { data, title = "" } = this.model.toJSON();
-    this.$el
-      .addClass("graph-tab-view")
-      .html(
-        `<h3 class="pane__title">${title}</h3><div class="chart-container"><canvas></canvas></div>`
-      );
+
+    this.$el.addClass("chart-item").html(
+      `<div class="chart-container">
+           <h4 class="chart-title">${title}</h4>
+           <canvas></canvas>
+         </div>`
+    );
 
     // add chart.js lib
     if (typeof Chart === "undefined") {
@@ -24,6 +26,7 @@ class PieChartView extends Backbone.Marionette.View {
 
     // setup of the chart element
     const ctx = this.el.querySelector("canvas").getContext("2d");
+
     new Chart(ctx, {
       type: "pie",
       data: {
@@ -32,21 +35,19 @@ class PieChartView extends Backbone.Marionette.View {
           {
             data: values,
             backgroundColor: labels.map(
-              (_, i) =>
-                `hsl(${((i * 360) / labels.length) | 0}, 70%, 70%)`
+              (_, i) => `hsl(${((i * 360) / labels.length) | 0},70%,70%)`
             ),
           },
         ],
       },
       options: {
         responsive: true,
-        maintainAspectRatio: false,
         plugins: {
           legend: { position: "bottom" },
-          title: { display: !!title, text: title },
         },
       },
     });
+
     return this;
   }
 }
