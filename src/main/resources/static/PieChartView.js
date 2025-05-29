@@ -33,7 +33,6 @@ class PieChartView extends Backbone.Marionette.View {
             data: values,
             backgroundColor: labels.map(
               (_, i) =>
-                // nice pastel colors
                 `hsl(${((i * 360) / labels.length) | 0}, 70%, 70%)`
             ),
           },

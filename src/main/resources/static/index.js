@@ -47,19 +47,21 @@ function restartRouter() {
 async function initTabs() {
   try {
     const html = await fetchText(`${BASE_PATH}`);
+    // TODO: add ordering numbers in file names as a requirement
     const tabNames = extractTabNames(html);
 
-    await Promise.all(
-      tabNames.map(async (name) => {
-        try {
-          const config = await fetchTabConfig(name);
-          const fullConfig = { name: titleCase(name), ...config };
-          registerTab(fullConfig);
-        } catch (err) {
-          console.error(`Failed to load tab "${name}":`, err);
-        }
-      })
-    );
+    for (const rawName of tabNames) {
+      try {
+        const cfg = await fetchTabConfig(rawName);
+        const fullConfig = {
+          name: titleCase(rawName),
+          ...cfg,
+        };
+        registerTab(fullConfig);
+      } catch (err) {
+        console.error(`Failed to load tab "${rawName}":`, err);
+      }
+    }
 
     restartRouter();
   } catch (err) {
