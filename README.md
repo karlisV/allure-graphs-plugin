@@ -83,7 +83,7 @@ In your result generation logic you have to generate `graph-tabs.json` file in t
 ```
 
 - **`pages`**: array of page definitions
-- **`key`**: unique identifier; used as tab route and title 
+- **`key`**: unique identifier; used as tab route and fallback title (if pageTitle is not set)
 - **`pageTitle`**: name of the page (tab)
 - **`iconClass`**: Font-Awesome v4 icon (no prefix)
 - **`columns`**: integer ≥1; charts per row (default: 3)
