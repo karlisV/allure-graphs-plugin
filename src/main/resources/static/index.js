@@ -1,72 +1,36 @@
 "use strict";
-const BASE_PATH = "/data";
-const TAB_PATTERN = /graph-tab-([\w-]+)\.json/g;
 
-async function fetchText(path) {
-  const res = await fetch(path);
-  if (!res.ok) throw new Error(`Failed to fetch ${path}: ${res.status}`);
-  return res.text();
-}
-
-async function fetchTabConfig(tabName) {
-  const url = `${BASE_PATH}/graph-tab-${tabName}.json`;
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`Failed to fetch ${url}: ${res.status}`);
-  return res.json();
-}
-
-function extractTabNames(html) {
-  const names = new Set();
-  for (const [, name] of html.matchAll(TAB_PATTERN)) {
-    names.add(name);
-  }
-  return Array.from(names);
-}
-
-function titleCase(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
-
-function registerTab(config) {
-  const { name, iconClass } = config;
-  allure.api.addTab(name, {
-    title: name,
-    icon: `fa ${iconClass}`,
-    route: name,
-    onEnter: () => {
-      return new GraphLayout(config);
-    },
-  });
-}
-
-function restartRouter() {
-  Backbone.history.stop();
-  Backbone.history.start();
-}
-
-async function initTabs() {
+function registerSyncTabs() {
   try {
-    const html = await fetchText(`${BASE_PATH}`);
-    // TODO: add ordering numbers in file names as a requirement
-    const tabNames = extractTabNames(html);
+    // Synchronous XHR to avoid restarting router
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", "/data/graph-tabs.json", false);
+    xhr.send(null);
 
-    for (const rawName of tabNames) {
-      try {
-        const cfg = await fetchTabConfig(rawName);
-        const fullConfig = {
-          name: titleCase(rawName),
-          ...cfg,
-        };
-        registerTab(fullConfig);
-      } catch (err) {
-        console.error(`Failed to load tab "${rawName}":`, err);
-      }
+    if (xhr.status === 200) {
+      const root = JSON.parse(xhr.responseText);
+      const pages = Array.isArray(root.pages) ? root.pages : [];
+
+      pages.forEach((page) => {
+        const key = page.key;
+        const title = page.pageTitle
+          ? page.pageTitle
+          : key.charAt(0).toUpperCase() + key.slice(1);
+        const icon = `fa ${page.iconClass}`;
+        const columns = Number(page.columns) || 3;
+        const charts = page.charts || [];
+
+        allure.api.addTab(key, {
+          title,
+          icon,
+          route: key,
+          onEnter: () => new GraphLayout({ name: title, charts, columns }),
+        });
+      });
     }
-
-    restartRouter();
   } catch (err) {
-    console.error("Could not initialize tabs:", err);
+    console.error("Failed to register graph-tabs:", err);
   }
 }
 
-initTabs();
+registerSyncTabs();

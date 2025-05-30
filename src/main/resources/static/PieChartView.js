@@ -1,6 +1,6 @@
 class PieChartView extends Backbone.Marionette.View {
   async render() {
-    const { data, title = "" } = this.model.toJSON();
+    const { data, title } = this.model.toJSON();
 
     this.$el.addClass("chart-item").html(
       `<div class="chart-container">
