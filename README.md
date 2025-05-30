@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Allure Graph Plugin enriches your Allure reports by adding fully-configurable graph pages (tabs). You need to provide a `graph-tabs.json` file in your `allure-results/` directory. That file contains an array of pages, each defining a tab with its own icon, layout, and charts.
+The Allure Graph Plugin enriches your Allure reports by adding fully-configurable graph **pages** (tabs). You supply a single `graph-tabs.json` in your `allure-results/` folder; the plugin reads its `pages` array and renders one tab per page, each with its own icon, grid layout, and set of charts.
+
+Under the hood we use [Chart.js](https://www.chartjs.org/) for **all** chart rendering, so your JSON must follow the Chart.js `type` + `data` + optional `options` structure exactly.
 
 ---
 
@@ -57,29 +59,25 @@ The Allure Graph Plugin enriches your Allure reports by adding fully-configurabl
 
 In your result generation logic you have to generate `graph-tabs.json` file in the `allure-results` folder. And when you run report generation command the reporter will pick up the file.
 
-### JSON schema
+### JSON top-level schema
 
 ```json
 {
   "pages": [
     {
-      "key": "performance",
-      "pageTitle": "Performance Metrics"
-      "iconClass": "fa-hashtag",
-      "columns": 2,
-      "charts": [
-        {
-          "chartType": "pie",
-          "title": "Endpoint Hits",
-          "data": {
-            "/posts": 1,
-            "/comments": 1
-          }
-        }
-        // …add more chart definitions per page…
-      ]
+      "key":       "performance",
+      "pageTitle": "Performance",
+      "iconClass": "fa-tachometer",
+      "columns":   2,
+      "charts": [ /* array of chart objects */ ]
+    },
+    {
+      "key":       "usage",
+      "pageTitle": "User Metrics",
+      "iconClass": "fa-pie-chart",
+      "columns":   3,
+      "charts": [ /* … */ ]
     }
-    // …add more pages…
   ]
 }
 ```
@@ -93,59 +91,174 @@ In your result generation logic you have to generate `graph-tabs.json` file in t
 
 ---
 
-## Supported Chart Types
+## Chart object
 
-- **`pie`**: renders a pie chart using Chart.js
-- **`trend`**: renders a simple trend (bar/line) chart
-- **Others**: unrecognized types display a placeholder; you can extend to support bar, area, gauge, etc.
-
----
-
-## Example JSON
+Each chart is rendered by Chart.js. Your JSON must supply:
 
 ```json
-// allure-results/graph-tabs.json
+{
+  "chartType": "bar",     // any Chart.js type: "pie","bar","line","radar","doughnut","polarArea","bubble","scatter",…
+  "title":     "My Chart",
+  "data": {
+    /* full Chart.js `data` object: */
+    "labels":   [ /* labels array (optional for scatter/bubble) */ ],
+    "datasets": [
+      {
+        /* at minimum: */
+        "data": [ /* numeric array or [{x,y},{x,y,r}] for scatter/bubble */ ],
+        /* optional Chart.js dataset props: backgroundColor, borderColor, label, fill, etc. */
+      }
+    ]
+  },
+  "options": { /* optional Chart.js options override */ }
+}
+```
+
+Feel free to visit [Chart.js](https://www.chartjs.org/docs/latest/configuration/) documentation and go throught what each chart needs. 
+
+---
+## Supported Chart Types
+
+You may specify any Chart.js supported `type` — the plugin will forward your JSON straight to Chart.js. Common examples:
+- `pie`, `doughnut`, `polarArea`
+- `bar`, `horizontalBar`
+- `line`, `area` (line with `fill: true`)
+- `radar`
+- `scatter`, `bubble`
+- ... and more
+
+---
+## Full example
+
+If you have correctly added the plugin, you can copy the JSON file into your `allure-result` folder as `graph-tabs.json` and generate a report. The example should create:
+1) 2 pages (tabs) in the report, one is called "Performance", second is called "User Metrics"
+2) in one tab there should be a `line` chart and a `bar` chart with various settings set
+3) in the other tab there should be `pie` chart and a `scatter`chart
+```json
 {
   "pages": [
     {
-      "key": "some-kpis",
-      "pageTitle": "Some KPIs",
-      "iconClass": "fa-hashtag",
+      "key": "performance",
+      "pageTitle": "Performance",
+      "iconClass": "fa-tachometer",
+      "columns": 2,
       "charts": [
         {
-          "chartType": "pie",
-          "title": "Endpoint Hits",
+          "chartType": "line",
+          "title": "Response Over Time",
           "data": {
-            "/posts": 1,
-            "/comments": 1
+            "labels": ["Run 1", "Run 2", "Run 3"],
+            "datasets": [
+              {
+                "label": "GET /api",
+                "data": [120, 110, 130],
+                "borderColor": "#36A2EB",
+                "backgroundColor": "rgba(54,162,235,0.2)",
+                "fill": false
+              }
+            ]
+          },
+          "options": {
+            "plugins": {
+              "legend": {
+                "position": "right"
+              }
+            }
           }
         },
         {
-          "chartType": "pie",
-          "title": "Mock Chart 2",
+          "chartType": "bar",
+          "title": "Error Rates",
           "data": {
-            "/messages": 91,
-            "/photos": 98,
-            "/likes": 62,
-            "/users": 94,
-            "/shares": 18
+            "labels": ["500", "404", "timeout"],
+            "datasets": [
+              {
+                "label": "hits",
+                "data": [5, 10, 2],
+                "backgroundColor": "#FF6384"
+              }
+            ]
+          },
+          "options": {
+            "scales": {
+              "y": {
+                "beginAtZero": true
+              },
+              "x": {
+                "title": {
+                  "display": true,
+                  "text": "Status Code"
+                }
+              }
+            },
+            "plugins": {
+              "legend": {
+                "position": "bottom"
+              }
+            }
           }
         }
-        // …more chart objects…
       ]
     },
     {
-      "key": "performance-metrics",
-      "pageTitle": "Performance metrics",
-      "iconClass": "fa-car",
-      "columns": 1,
+      "key": "usage",
+      "pageTitle": "User Metrics",
+      "iconClass": "fa-pie-chart",
+      "columns": 3,
       "charts": [
         {
-          "chartType": "trend",
-          "title": "Average Response Time",
+          "chartType": "pie",
+          "title": "Device Distribution",
           "data": {
-            "/posts": 1329.0,
-            "/comments": 304.0
+            "labels": ["Desktop", "Mobile", "Tablet"],
+            "datasets": [
+              {
+                "data": [60, 30, 10],
+                "backgroundColor": ["#4DC9F6", "#F67019", "#F53794"]
+              }
+            ]
+          }
+        },
+        {
+          "chartType": "scatter",
+          "title": "Latency vs Throughput",
+          "data": {
+            "datasets": [
+              {
+                "label": "Sessions",
+                "data": [
+                  {
+                    "x": 100,
+                    "y": 200
+                  },
+                  {
+                    "x": 200,
+                    "y": 150
+                  },
+                  {
+                    "x": 300,
+                    "y": 250
+                  }
+                ],
+                "backgroundColor": "rgba(153,102,255,0.6)"
+              }
+            ]
+          },
+          "options": {
+            "scales": {
+              "x": {
+                "title": {
+                  "display": true,
+                  "text": "Throughput"
+                }
+              },
+              "y": {
+                "title": {
+                  "display": true,
+                  "text": "Latency (ms)"
+                }
+              }
+            }
           }
         }
       ]
@@ -153,18 +266,25 @@ In your result generation logic you have to generate `graph-tabs.json` file in t
   ]
 }
 ```
+### Other examples
+
+In the `examples` folder you can find 2 JSONs with examples. Only one of them can be used at a time (you can merge the files into one if you want to). **Be sure to rename the file to `graph-tabs.json` when you put it into the results folder or it won't work**
 
 ---
+## Limitations & Notes
+- **No dynamic JS callbacks:** charts are purely JSON driven, custom interactivity (click handlers, tooltips beyond Chart.js defaults) must be implemented in a fork or extension.
+- **Chart.js version:** the plugin loads Chart.js from CDN (latest), so features correspond to that release.
+- **CSS & layout:** charts are placed in Allure’s standard widget grid; you can override via custom CSS if desired.
 
 ---
-
 ## Contribution
 
 Contributions welcome! Feel free to:
 
-- Add new chart types (bar, area, gauge…)
-- Improve placeholders or docs
-- Fix bugs or update dependencies
-- Add tests
+- New chart-type support or improved placeholders
+- Better error handling or schema validation
+- CSS/layout tweaks for responsive design
+- Additional examples or docs
+- Unit tests for the Java part
 
 Please fork, adhere to existing style and be sure to add docs with your PR.

@@ -1,0 +1,762 @@
+{
+  "pages": [
+    {
+      "key": "performance",
+      "pageTitle": "Performance",
+      "iconClass": "fa-tachometer",
+      "columns": 2,
+      "charts": [
+        {
+          "chartType": "line",
+          "title": "Avg Response Time Over Runs",
+          "data": {
+            "labels": [
+              "Run 1",
+              "Run 2",
+              "Run 3",
+              "Run 4",
+              "Run 5"
+            ],
+            "datasets": [
+              {
+                "label": "POST /posts",
+                "data": [
+                  1200,
+                  1150,
+                  1300,
+                  1250,
+                  1100
+                ],
+                "borderColor": "rgba(75,192,192,1)",
+                "backgroundColor": "rgba(75,192,192,0.2)",
+                "fill": false
+              },
+              {
+                "label": "GET /comments",
+                "data": [
+                  800,
+                  850,
+                  780,
+                  820,
+                  810
+                ],
+                "borderColor": "rgba(255,99,132,1)",
+                "backgroundColor": "rgba(255,99,132,0.2)",
+                "fill": false
+              }
+            ]
+          },
+          "options": {
+            "scales": {
+              "y": {
+                "beginAtZero": true
+              },
+              "x": {
+                "title": {
+                  "display": true,
+                  "text": "Test Run"
+                }
+              }
+            }
+          }
+        },
+        {
+          "chartType": "bar",
+          "title": "Endpoint Hit Counts",
+          "data": {
+            "labels": [
+              "/login",
+              "/search",
+              "/checkout",
+              "/profile"
+            ],
+            "datasets": [
+              {
+                "label": "Hits",
+                "data": [
+                  4500,
+                  3700,
+                  2200,
+                  3100
+                ],
+                "backgroundColor": [
+                  "rgba(54,162,235,0.6)",
+                  "rgba(255,206,86,0.6)",
+                  "rgba(75,192,192,0.6)",
+                  "rgba(153,102,255,0.6)"
+                ]
+              }
+            ]
+          },
+          "options": {
+            "scales": {
+              "y": {
+                "beginAtZero": true
+              }
+            }
+          }
+        },
+        {
+          "chartType": "polarArea",
+          "title": "Error Type Distribution",
+          "data": {
+            "labels": [
+              "500",
+              "404",
+              "timeout",
+              "503"
+            ],
+            "datasets": [
+              {
+                "data": [
+                  50,
+                  25,
+                  15,
+                  10
+                ],
+                "backgroundColor": [
+                  "#ff6384",
+                  "#36a2eb",
+                  "#ffce56",
+                  "#4bc0c0"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "chartType": "radar",
+          "title": "Test Coverage by Endpoint",
+          "data": {
+            "labels": [
+              "Login",
+              "Search",
+              "Checkout",
+              "Profile",
+              "Settings"
+            ],
+            "datasets": [
+              {
+                "label": "Coverage (%)",
+                "data": [
+                  95,
+                  90,
+                  85,
+                  80,
+                  88
+                ],
+                "backgroundColor": "rgba(255,99,132,0.2)",
+                "borderColor": "rgba(255,99,132,1)"
+              }
+            ]
+          },
+          "options": {
+            "elements": {
+              "line": {
+                "tension": 0.3
+              }
+            }
+          }
+        },
+        {
+          "chartType": "bubble",
+          "title": "Latency vs Throughput",
+          "data": {
+            "labels": [
+              "x",
+              "y",
+              "r"
+            ],
+            "datasets": [
+              {
+                "label": "Sessions",
+                "data": [
+                  {
+                    "x": 100,
+                    "y": 200,
+                    "r": 10
+                  },
+                  {
+                    "x": 300,
+                    "y": 150,
+                    "r": 15
+                  },
+                  {
+                    "x": 500,
+                    "y": 100,
+                    "r": 8
+                  },
+                  {
+                    "x": 700,
+                    "y": 250,
+                    "r": 12
+                  }
+                ],
+                "backgroundColor": "rgba(255,159,64,0.6)"
+              }
+            ]
+          },
+          "options": {
+            "scales": {
+              "x": {
+                "title": {
+                  "display": true,
+                  "text": "Requests/sec"
+                }
+              },
+              "y": {
+                "title": {
+                  "display": true,
+                  "text": "Latency (ms)"
+                }
+              }
+            }
+          }
+        },
+        {
+          "chartType": "doughnut",
+          "title": "Random Doughnut 1",
+          "data": {
+            "labels": [
+              "Alpha",
+              "Beta",
+              "Gamma"
+            ],
+            "datasets": [
+              {
+                "data": [
+                  120,
+                  80,
+                  100
+                ],
+                "backgroundColor": [
+                  "#ff6384",
+                  "#36a2eb",
+                  "#ffce56"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "chartType": "scatter",
+          "title": "Random Scatter 2",
+          "data": {
+            "datasets": [
+              {
+                "label": "Random Points",
+                "data": [
+                  {
+                    "x": 10,
+                    "y": 15
+                  },
+                  {
+                    "x": 20,
+                    "y": 25
+                  },
+                  {
+                    "x": 30,
+                    "y": 20
+                  },
+                  {
+                    "x": 40,
+                    "y": 35
+                  },
+                  {
+                    "x": 50,
+                    "y": 45
+                  }
+                ],
+                "backgroundColor": "rgba(255,99,132,0.6)"
+              }
+            ]
+          },
+          "options": {
+            "scales": {
+              "x": {
+                "title": {
+                  "display": true,
+                  "text": "X Value"
+                }
+              },
+              "y": {
+                "title": {
+                  "display": true,
+                  "text": "Y Value"
+                }
+              }
+            }
+          }
+        },
+        {
+          "chartType": "bar",
+          "title": "Random Bar 3",
+          "data": {
+            "labels": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "datasets": [
+              {
+                "label": "Values",
+                "data": [
+                  5,
+                  3,
+                  8,
+                  2
+                ],
+                "backgroundColor": "rgba(75,192,192,0.6)"
+              }
+            ]
+          }
+        },
+        {
+          "chartType": "line",
+          "title": "Random Line 4",
+          "data": {
+            "labels": [
+              "Jan",
+              "Feb",
+              "Mar",
+              "Apr"
+            ],
+            "datasets": [
+              {
+                "label": "Metric",
+                "data": [
+                  100,
+                  120,
+                  90,
+                  110
+                ],
+                "borderColor": "#36a2eb",
+                "fill": false
+              }
+            ]
+          }
+        },
+        {
+          "chartType": "pie",
+          "title": "Random Pie 5",
+          "data": {
+            "labels": [
+              "L1",
+              "L2",
+              "L3"
+            ],
+            "datasets": [
+              {
+                "data": [
+                  40,
+                  30,
+                  30
+                ],
+                "backgroundColor": [
+                  "#4dc9f6",
+                  "#f67019",
+                  "#f53794"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "key": "usage",
+      "pageTitle": "User Metrics",
+      "iconClass": "fa-pie-chart",
+      "columns": 3,
+      "charts": [
+        {
+          "chartType": "pie",
+          "title": "User Signups by Region",
+          "data": {
+            "labels": [
+              "Americas",
+              "Europe",
+              "Asia",
+              "Africa"
+            ],
+            "datasets": [
+              {
+                "data": [
+                  1500,
+                  1200,
+                  800,
+                  300
+                ],
+                "backgroundColor": [
+                  "#4dc9f6",
+                  "#f67019",
+                  "#f53794",
+                  "#537bc4"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "chartType": "doughnut",
+          "title": "Device Type Share",
+          "data": {
+            "labels": [
+              "Desktop",
+              "Mobile",
+              "Tablet"
+            ],
+            "datasets": [
+              {
+                "data": [
+                  60,
+                  30,
+                  10
+                ],
+                "backgroundColor": [
+                  "#ff6384",
+                  "#36a2eb",
+                  "#ffcd56"
+                ]
+              }
+            ]
+          },
+          "options": {
+            "plugins": {
+              "legend": {
+                "position": "right"
+              }
+            }
+          }
+        },
+        {
+          "chartType": "bar",
+          "title": "Monthly Active Users",
+          "data": {
+            "labels": [
+              "Jan",
+              "Feb",
+              "Mar",
+              "Apr",
+              "May",
+              "Jun"
+            ],
+            "datasets": [
+              {
+                "label": "Web",
+                "data": [
+                  800,
+                  950,
+                  1100,
+                  1050,
+                  1200,
+                  1300
+                ],
+                "backgroundColor": "rgba(75,192,192,0.6)"
+              },
+              {
+                "label": "Mobile",
+                "data": [
+                  600,
+                  700,
+                  850,
+                  900,
+                  1000,
+                  1150
+                ],
+                "backgroundColor": "rgba(153,102,255,0.6)"
+              }
+            ]
+          },
+          "options": {
+            "scales": {
+              "y": {
+                "beginAtZero": true
+              }
+            }
+          }
+        },
+        {
+          "chartType": "line",
+          "title": "Daily Page Views",
+          "data": {
+            "labels": [
+              "Mon",
+              "Tue",
+              "Wed",
+              "Thu",
+              "Fri",
+              "Sat",
+              "Sun"
+            ],
+            "datasets": [
+              {
+                "label": "Page Views",
+                "data": [
+                  12000,
+                  15000,
+                  14000,
+                  16000,
+                  18000,
+                  20000,
+                  17000
+                ],
+                "borderColor": "#ff6384",
+                "backgroundColor": "rgba(255,99,132,0.2)",
+                "fill": true
+              }
+            ]
+          },
+          "options": {
+            "elements": {
+              "line": {
+                "tension": 0.4
+              }
+            },
+            "scales": {
+              "y": {
+                "beginAtZero": true
+              }
+            }
+          }
+        },
+        {
+          "chartType": "scatter",
+          "title": "Response Size vs Time",
+          "data": {
+            "datasets": [
+              {
+                "label": "Requests",
+                "data": [
+                  {
+                    "x": 200,
+                    "y": 1200
+                  },
+                  {
+                    "x": 500,
+                    "y": 1800
+                  },
+                  {
+                    "x": 800,
+                    "y": 950
+                  },
+                  {
+                    "x": 1200,
+                    "y": 2100
+                  }
+                ],
+                "backgroundColor": "rgba(54,162,235,0.6)"
+              }
+            ]
+          },
+          "options": {
+            "scales": {
+              "x": {
+                "title": {
+                  "display": true,
+                  "text": "Response Size (KB)"
+                }
+              },
+              "y": {
+                "title": {
+                  "display": true,
+                  "text": "Time (ms)"
+                }
+              }
+            }
+          }
+        },
+        {
+          "chartType": "line",
+          "title": "Throughput Over Time (Area)",
+          "data": {
+            "labels": [
+              "00:00",
+              "04:00",
+              "08:00",
+              "12:00",
+              "16:00",
+              "20:00",
+              "24:00"
+            ],
+            "datasets": [
+              {
+                "label": "Requests/sec",
+                "data": [
+                  30,
+                  45,
+                  50,
+                  60,
+                  55,
+                  40,
+                  35
+                ],
+                "backgroundColor": "rgba(75,192,192,0.4)",
+                "borderColor": "rgba(75,192,192,1)",
+                "fill": true
+              }
+            ]
+          },
+          "options": {
+            "elements": {
+              "line": {
+                "tension": 0.3
+              }
+            },
+            "scales": {
+              "y": {
+                "beginAtZero": true
+              }
+            }
+          }
+        },
+        {
+          "chartType": "polarArea",
+          "title": "Random PolarArea 6",
+          "data": {
+            "labels": [
+              "P1",
+              "P2",
+              "P3",
+              "P4"
+            ],
+            "datasets": [
+              {
+                "data": [
+                  11,
+                  16,
+                  7,
+                  14
+                ],
+                "backgroundColor": [
+                  "#e6194b",
+                  "#3cb44b",
+                  "#ffe119",
+                  "#4363d8"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "chartType": "radar",
+          "title": "Random Radar 7",
+          "data": {
+            "labels": [
+              "R1",
+              "R2",
+              "R3",
+              "R4",
+              "R5"
+            ],
+            "datasets": [
+              {
+                "label": "Scores",
+                "data": [
+                  65,
+                  75,
+                  70,
+                  80,
+                  60
+                ],
+                "backgroundColor": "rgba(255,206,86,0.2)",
+                "borderColor": "rgba(255,206,86,1)"
+              }
+            ]
+          }
+        },
+        {
+          "chartType": "bubble",
+          "title": "Random Bubble 8",
+          "data": {
+            "datasets": [
+              {
+                "label": "Population",
+                "data": [
+                  {
+                    "x": 1000,
+                    "y": 500,
+                    "r": 20
+                  },
+                  {
+                    "x": 2000,
+                    "y": 800,
+                    "r": 30
+                  },
+                  {
+                    "x": 1500,
+                    "y": 600,
+                    "r": 25
+                  }
+                ],
+                "backgroundColor": "rgba(54,162,235,0.6)"
+              }
+            ]
+          },
+          "options": {
+            "scales": {
+              "x": {
+                "title": {
+                  "display": true,
+                  "text": "Population (k)"
+                }
+              },
+              "y": {
+                "title": {
+                  "display": true,
+                  "text": "Growth Rate (%)"
+                }
+              }
+            }
+          }
+        },
+        {
+          "chartType": "bar",
+          "title": "Random Bar 9",
+          "data": {
+            "labels": [
+              "Cat1",
+              "Cat2",
+              "Cat3"
+            ],
+            "datasets": [
+              {
+                "label": "Count",
+                "data": [
+                  20,
+                  35,
+                  40
+                ],
+                "backgroundColor": "rgba(75,192,192,0.6)"
+              }
+            ]
+          }
+        },
+        {
+          "chartType": "line",
+          "title": "Random Line 10",
+          "data": {
+            "labels": [
+              "Mon",
+              "Wed",
+              "Fri"
+            ],
+            "datasets": [
+              {
+                "label": "Visits",
+                "data": [
+                  300,
+                  400,
+                  350
+                ],
+                "borderColor": "#ff9f40",
+                "fill": true
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
