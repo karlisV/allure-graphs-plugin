@@ -34,8 +34,7 @@ class ChartView extends Backbone.Marionette.View {
       data,
       options: {
         responsive: true,
-        maintainAspectRatio: false,
-        plugins: { title: { display: true, text: title } },
+        plugins: { title: { display: false, text: title } },
         ...options,
       },
     });
