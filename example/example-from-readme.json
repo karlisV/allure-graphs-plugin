@@ -1,0 +1,130 @@
+{
+  "pages": [
+    {
+      "key": "performance",
+      "pageTitle": "Performance",
+      "iconClass": "fa-tachometer",
+      "columns": 2,
+      "charts": [
+        {
+          "chartType": "line",
+          "title": "Response Over Time",
+          "data": {
+            "labels": ["Run 1", "Run 2", "Run 3"],
+            "datasets": [
+              {
+                "label": "GET /api",
+                "data": [120, 110, 130],
+                "borderColor": "#36A2EB",
+                "backgroundColor": "rgba(54,162,235,0.2)",
+                "fill": false
+              }
+            ]
+          },
+          "options": {
+            "plugins": {
+              "legend": {
+                "position": "right"
+              }
+            }
+          }
+        },
+        {
+          "chartType": "bar",
+          "title": "Error Rates",
+          "data": {
+            "labels": ["500", "404", "timeout"],
+            "datasets": [
+              {
+                "label": "hits",
+                "data": [5, 10, 2],
+                "backgroundColor": "#FF6384"
+              }
+            ]
+          },
+          "options": {
+            "scales": {
+              "y": {
+                "beginAtZero": true
+              },
+              "x": {
+                "title": {
+                  "display": true,
+                  "text": "Status Code"
+                }
+              }
+            },
+            "plugins": {
+              "legend": {
+                "position": "bottom"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "usage",
+      "pageTitle": "User Metrics",
+      "iconClass": "fa-pie-chart",
+      "columns": 3,
+      "charts": [
+        {
+          "chartType": "pie",
+          "title": "Device Distribution",
+          "data": {
+            "labels": ["Desktop", "Mobile", "Tablet"],
+            "datasets": [
+              {
+                "data": [60, 30, 10],
+                "backgroundColor": ["#4DC9F6", "#F67019", "#F53794"]
+              }
+            ]
+          }
+        },
+        {
+          "chartType": "scatter",
+          "title": "Latency vs Throughput",
+          "data": {
+            "datasets": [
+              {
+                "label": "Sessions",
+                "data": [
+                  {
+                    "x": 100,
+                    "y": 200
+                  },
+                  {
+                    "x": 200,
+                    "y": 150
+                  },
+                  {
+                    "x": 300,
+                    "y": 250
+                  }
+                ],
+                "backgroundColor": "rgba(153,102,255,0.6)"
+              }
+            ]
+          },
+          "options": {
+            "scales": {
+              "x": {
+                "title": {
+                  "display": true,
+                  "text": "Throughput"
+                }
+              },
+              "y": {
+                "title": {
+                  "display": true,
+                  "text": "Latency (ms)"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

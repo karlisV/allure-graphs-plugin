@@ -3,7 +3,7 @@ name: Graph tabs
 description: Adds tabs specified by the file name to the report that include various graphs
 jsFiles:
   - GraphGridView.js
-  - PieChartView.js
+  - ChartView.js
   - GraphLayout.js
   - index.js
 cssFiles:
