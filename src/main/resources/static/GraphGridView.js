@@ -76,11 +76,7 @@ class GraphGridView extends Backbone.Marionette.View {
   }
 
   createWidgetFor(spec) {
-    // instantiate the correct view
-    const view =
-      spec.chartType === "pie"
-        ? new PieChartView({ model: new Backbone.Model(spec) })
-        : new PlaceholderView({ spec });
+    const view = new ChartView({model: new Backbone.Model(spec)})
     view.render();
 
     // wrap in Allure widget shell for correct styling
