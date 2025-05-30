@@ -18,15 +18,14 @@ class GraphGridView extends Backbone.Marionette.View {
   }
 
   render() {
-    const { name, charts, columns = 3 } = this.config;
-    const cols = Number(columns) || 3;
+    const { name, charts, columns } = this.config;
 
     this.clearPane();
     this.renderTitle(name);
 
     const container = this.createContainer();
     const grid = this.createGrid(container);
-    const columnElements = this.createColumns(grid, cols);
+    const columnElements = this.createColumns(grid, columns);
 
     this.populateCharts(charts, columnElements);
 

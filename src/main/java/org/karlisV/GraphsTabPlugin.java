@@ -9,60 +9,42 @@ import io.qameta.allure.core.Configuration;
 import io.qameta.allure.core.LaunchResults;
 import io.qameta.allure.core.ResultsVisitor;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Stream;
+import java.util.Map;
+import java.util.Optional;
 
 public class GraphsTabPlugin implements Aggregator2, Reader {
-
-    private static final Pattern FILE_PATTERN = Pattern.compile("graph-tab-(.*)\\.json");
-    private static final String FOLDER = "data";
-    private final List<String> keys = new ArrayList<>();
-
-
-    public GraphsTabPlugin() {}
+    private static final String FOLDER         = "data";
+    private static final String TABS_FILENAME  = "graph-tabs.json";
 
     @Override
-    public void aggregate(Configuration configuration, List<LaunchResults> launchesResults, ReportStorage storage) {
+    public void aggregate(Configuration configuration,
+                          java.util.List<LaunchResults> launchesResults,
+                          ReportStorage storage) {
+        // We expect the filter to have written graph-tabs.json under results dir
+        // Allure Reader will have picked it up as extra with key "tabs"
         for (LaunchResults results : launchesResults) {
-            for(String key : keys){
-               Optional<Map> graphData = results.getExtra(key);
-               if(graphData.isPresent()){
-                   String fileName = FOLDER + "/graph-tab-" + key + ".json";
-                   storage.addDataJson(fileName, graphData.get());
-               }
+            Optional<Map> tabs = results.getExtra("tabs");
+            if (tabs.isPresent()) {
+                storage.addDataJson(FOLDER + "/" + TABS_FILENAME, tabs.get());
             }
         }
     }
 
     @Override
-    public void readResults(Configuration configuration, ResultsVisitor visitor, Path directory) {
-        final JacksonContext context = configuration.requireContext(JacksonContext.class);
-        ObjectMapper objectMapper = context.getValue();
-
-        try (Stream<Path> files = Files.walk(directory)) {
-            files.filter(Files::isRegularFile)
-                    .forEach(path -> {
-                        String filename = path.getFileName().toString();
-                        Matcher matcher = FILE_PATTERN.matcher(filename);
-                        if (matcher.matches()) {
-                            String identifier = matcher.group(1);
-                            this.keys.add(identifier);
-                            try {
-                                String content = new String(Files.readAllBytes(path));
-                                Map data = objectMapper.readValue(content, Map.class);
-                                visitor.visitExtra(identifier, data);
-                            } catch (IOException e) {
-                                throw new RuntimeException("Failed to read file " + path, e);
-                            }
-                        }
-                    });
+    public void readResults(Configuration configuration,
+                            ResultsVisitor visitor,
+                            Path directory) {
+        try {
+            Path tabsPath = directory.resolve(TABS_FILENAME);
+            if (Files.isRegularFile(tabsPath)) {
+                ObjectMapper objectMapper = configuration.requireContext(JacksonContext.class).getValue();
+                Map root = objectMapper.readValue(tabsPath.toFile(), Map.class);
+                visitor.visitExtra("tabs", root);
+            }
         } catch (Exception e) {
-            throw new RuntimeException("Failed to process results directory", e);
+            throw new RuntimeException("Failed to read graph-tabs.json", e);
         }
     }
 }
